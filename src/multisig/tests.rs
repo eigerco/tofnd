@@ -167,6 +167,47 @@ async fn test_multisig_ed25519_keygen_sign() {
 
 #[traced_test]
 #[tokio::test]
+async fn test_multisig_aleo_schnorr_keygen_sign() {
+    let key = "multisig key";
+    let (mut client, shutdown_sender) = spin_test_service_and_client().await;
+
+    let request = KeygenRequest::new(key, Algorithm::AleoSchnorr);
+
+    let response = client.keygen(request).await.unwrap().into_inner();
+    let pub_key = match response.keygen_response.unwrap() {
+        KeygenResponse::PubKey(pub_key) => pub_key,
+        KeygenResponse::Error(err) => {
+            panic!("Got error from keygen: {}", err);
+        }
+    };
+
+    let request = SignRequest::new(key, Algorithm::AleoSchnorr);
+    let msg_digest = request.msg_to_sign.clone();
+    let response = client.sign(request).await.unwrap().into_inner();
+    let signature = match response.sign_response.unwrap() {
+        SignResponse::Signature(signature) => signature,
+        SignResponse::Error(err) => {
+            panic!("Got error from sign: {}", err)
+        }
+    };
+
+    shutdown_sender.send(()).unwrap();
+
+    let address = std::str::from_utf8(&pub_key).unwrap();
+
+    use crate::multisig::aleo_schnorr_signature::CurrentNetwork;
+    assert!(
+        crate::multisig::aleo_schnorr_signature::AleoSchnorrSignature::<CurrentNetwork>::verify(
+            address,
+            &signature,
+            &msg_digest
+        )
+        .unwrap()
+    );
+}
+
+#[traced_test]
+#[tokio::test]
 async fn test_multisig_keygen_deterministic_and_unique_keys() {
     let key = "multisig key";
     let (mut client, shutdown_sender) = spin_test_service_and_client().await;

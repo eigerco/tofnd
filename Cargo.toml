@@ -46,6 +46,10 @@ zeroize = { version = "1.8", features = ["zeroize_derive"], default-features = f
 # error handling
 thiserror = { version = "1.0", default-features = false }
 anyhow = { version = "1.0", default-features = false }
+snarkvm = { version = "1.1.0" } # TODO: include only the features we need
+# snarkvm = { version = "1.1.0", default-features =  false, features = ["parameters"]}
+snarkos-account = "3.1.0"
+rand_chacha = { version = "0.3", default-features = false }
 
 [build-dependencies]
 tonic-build = { version = "0.12" }
