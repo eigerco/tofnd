@@ -35,9 +35,12 @@ impl KeyPair {
                 Self::Ed25519(key_pair)
             }
             Algorithm::AleoSchnorr => {
-                // TODO: Private key is hard-coded, we need to do this the right way
-                let s = "APrivateKey1zkp59qjQHrFAmXuQHfuL6935YqGhRmoxVNZbh7GZqGsWrmg";
-                Self::AleoSchnorr(AleoSchnorrSignature::new(s)?)
+                // TODO: the following keygen function should be used. We need to generate the key
+                // using secret_recovery_key and session_nonce to get the same keypair
+                // let private_key = super::aleo_schnorr_signature::keygen::<CurrentNetwork>()?;
+                let private_key = "APrivateKey1zkp59qjQHrFAmXuQHfuL6935YqGhRmoxVNZbh7GZqGsWrmg";
+                let private_key = <snarkvm::prelude::PrivateKey::<CurrentNetwork> as std::str::FromStr>::from_str(private_key).unwrap();
+                Self::AleoSchnorr(AleoSchnorrSignature::new(private_key)?)
             }
         })
     }
@@ -54,7 +57,10 @@ impl KeyPair {
         match self {
             Self::Ecdsa(key_pair) => ecdsa::sign(key_pair.signing_key(), msg_to_sign),
             Self::Ed25519(key_pair) => ed25519::sign(key_pair, msg_to_sign),
-            Self::AleoSchnorr(account) => Ok(account.sign_bytes(msg_to_sign.as_ref())?),
+            Self::AleoSchnorr(account) => {
+                let sign = account.sign_bytes(msg_to_sign.as_ref())?;
+                Ok(sign.to_string().as_bytes().to_vec())
+            }
         }
         .map_err(|e| anyhow!("signing failed: {e:?}"))
     }

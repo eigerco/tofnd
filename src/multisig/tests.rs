@@ -5,6 +5,7 @@ use crate::{
     proto::Algorithm,
     tests::{DEFAULT_TEST_IP, DEFAULT_TEST_PORT},
 };
+use snarkvm::prelude::Signature;
 use tokio::{
     self,
     net::TcpListener,
@@ -19,7 +20,7 @@ use testdir::testdir;
 use tracing::error;
 use tracing_test::traced_test;
 
-use std::convert::TryInto;
+use std::{convert::TryInto, str::FromStr as _};
 
 use crate::proto::{
     key_presence_response::Response::Present, keygen_response::KeygenResponse,
@@ -196,6 +197,8 @@ async fn test_multisig_aleo_schnorr_keygen_sign() {
     let address = std::str::from_utf8(&pub_key).unwrap();
 
     use crate::multisig::aleo_schnorr_signature::CurrentNetwork;
+    let signature =
+        Signature::<CurrentNetwork>::from_str(std::str::from_utf8(&signature).unwrap()).unwrap();
     assert!(
         crate::multisig::aleo_schnorr_signature::AleoSchnorrSignature::<CurrentNetwork>::verify(
             address,
