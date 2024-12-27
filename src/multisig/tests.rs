@@ -196,11 +196,11 @@ async fn test_multisig_aleo_schnorr_keygen_sign() {
 
     let address = std::str::from_utf8(&pub_key).unwrap();
 
-    use crate::multisig::aleo_schnorr_signature::CurrentNetwork;
+    pub type CurrentNetwork = snarkvm::prelude::TestnetV0;
     let signature =
         Signature::<CurrentNetwork>::from_str(std::str::from_utf8(&signature).unwrap()).unwrap();
     assert!(
-        crate::multisig::aleo_schnorr_signature::AleoSchnorrSignature::<CurrentNetwork>::verify(
+        tofn::aleo_schnorr::verify(
             address,
             &signature,
             &msg_digest

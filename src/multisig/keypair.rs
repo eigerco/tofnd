@@ -1,17 +1,16 @@
-use crate::multisig::aleo_schnorr_signature::AleoSchnorrSignature;
 use crate::{proto::Algorithm, TofndResult};
 use anyhow::anyhow;
 use tofn::{
-    ecdsa, ed25519,
+    ecdsa, ed25519, aleo_schnorr,
     sdk::api::{MessageDigest, SecretRecoveryKey},
 };
 
-use super::aleo_schnorr_signature::CurrentNetwork;
+pub type CurrentNetwork = snarkvm::prelude::TestnetV0;
 
 pub enum KeyPair {
     Ecdsa(ecdsa::KeyPair),
     Ed25519(ed25519::KeyPair),
-    AleoSchnorr(AleoSchnorrSignature<CurrentNetwork>),
+    AleoSchnorr(aleo_schnorr::KeyPair<CurrentNetwork>),
 }
 
 impl KeyPair {
@@ -35,12 +34,13 @@ impl KeyPair {
                 Self::Ed25519(key_pair)
             }
             Algorithm::AleoSchnorr => {
-                // TODO: the following keygen function should be used. We need to generate the key
-                // using secret_recovery_key and session_nonce to get the same keypair
-                // let private_key = super::aleo_schnorr_signature::keygen::<CurrentNetwork>()?;
-                let private_key = "APrivateKey1zkp59qjQHrFAmXuQHfuL6935YqGhRmoxVNZbh7GZqGsWrmg";
-                let private_key = <snarkvm::prelude::PrivateKey::<CurrentNetwork> as std::str::FromStr>::from_str(private_key).unwrap();
-                Self::AleoSchnorr(AleoSchnorrSignature::new(private_key)?)
+                let key_pair = tofn::aleo_schnorr::keygen::<CurrentNetwork>(
+                    secret_recovery_key,
+                    session_nonce,
+                )
+                .map_err(|_| anyhow!("Cannot generate keypair"))?;
+
+                Self::AleoSchnorr(key_pair)
             }
         })
     }
@@ -49,7 +49,7 @@ impl KeyPair {
         match self {
             Self::Ecdsa(key_pair) => key_pair.encoded_verifying_key().into(),
             Self::Ed25519(key_pair) => key_pair.encoded_verifying_key().into(),
-            Self::AleoSchnorr(account) => account.address().to_string().into_bytes(),
+            Self::AleoSchnorr(key_pair) => key_pair.encoded_verifying_key().into_bytes(),
         }
     }
 
@@ -57,9 +57,8 @@ impl KeyPair {
         match self {
             Self::Ecdsa(key_pair) => ecdsa::sign(key_pair.signing_key(), msg_to_sign),
             Self::Ed25519(key_pair) => ed25519::sign(key_pair, msg_to_sign),
-            Self::AleoSchnorr(account) => {
-                let sign = account.sign_bytes(msg_to_sign.as_ref())?;
-                Ok(sign.to_string().as_bytes().to_vec())
+            Self::AleoSchnorr(key_pair) => {
+                aleo_schnorr::sign(key_pair, msg_to_sign)
             }
         }
         .map_err(|e| anyhow!("signing failed: {e:?}"))
