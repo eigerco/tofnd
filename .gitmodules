@@ -1,5 +1,5 @@
 [submodule "proto"]
 	path = proto
-	url = https://github.com/axelarnetwork/grpc-protobuf.git
+	url = https://github.com/eigerco/axelar-tofnd-grpc-protobuf.git
 	branch = main
 	fetchRecurseSubmodules = true

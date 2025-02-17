@@ -1,7 +1,7 @@
 use crate::{proto::Algorithm, TofndResult};
 use anyhow::anyhow;
 use tofn::{
-    ecdsa, ed25519, aleo_schnorr,
+    aleo_schnorr, ecdsa, ed25519,
     sdk::api::{MessageDigest, SecretRecoveryKey},
 };
 
@@ -57,9 +57,7 @@ impl KeyPair {
         match self {
             Self::Ecdsa(key_pair) => ecdsa::sign(key_pair.signing_key(), msg_to_sign),
             Self::Ed25519(key_pair) => ed25519::sign(key_pair, msg_to_sign),
-            Self::AleoSchnorr(key_pair) => {
-                aleo_schnorr::sign(key_pair, msg_to_sign)
-            }
+            Self::AleoSchnorr(key_pair) => aleo_schnorr::sign(key_pair, msg_to_sign),
         }
         .map_err(|e| anyhow!("signing failed: {e:?}"))
     }

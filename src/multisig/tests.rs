@@ -90,7 +90,7 @@ impl SignRequest {
     fn new(key_uid: &str, algorithm: Algorithm) -> SignRequest {
         SignRequest {
             key_uid: key_uid.to_string(),
-            msg_to_sign: vec![32; 32],
+            msg_to_sign: vec![2; 32],
             party_uid: String::default(),
             pub_key: vec![],
             algorithm: algorithm as i32,
@@ -199,14 +199,9 @@ async fn test_multisig_aleo_schnorr_keygen_sign() {
     pub type CurrentNetwork = snarkvm::prelude::TestnetV0;
     let signature =
         Signature::<CurrentNetwork>::from_str(std::str::from_utf8(&signature).unwrap()).unwrap();
-    assert!(
-        tofn::aleo_schnorr::verify(
-            address,
-            &signature,
-            &msg_digest
-        )
-        .unwrap()
-    );
+
+    let msg_digest = msg_digest.as_slice().try_into().unwrap();
+    assert!(tofn::aleo_schnorr::verify(address, &signature, &msg_digest).unwrap());
 }
 
 #[traced_test]
