@@ -1,4 +1,3 @@
-// mod aleo_schnorr_signature;
 mod key_presence;
 mod keygen;
 mod keypair;
