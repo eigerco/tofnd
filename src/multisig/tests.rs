@@ -167,13 +167,44 @@ async fn test_multisig_ed25519_keygen_sign() {
 
 #[traced_test]
 #[tokio::test]
+async fn test_multisig_stark_keygen_sign() {
+    let key = "multisig key";
+    let (mut client, shutdown_sender) = spin_test_service_and_client().await;
+
+    let request = KeygenRequest::new(key, Algorithm::EcdsaStark);
+
+    let response = client.keygen(request).await.unwrap().into_inner();
+    let pub_key = match response.keygen_response.unwrap() {
+        KeygenResponse::PubKey(pub_key) => pub_key,
+        KeygenResponse::Error(err) => {
+            panic!("Got error from keygen: {}", err);
+        }
+    };
+
+    let request = SignRequest::new(key, Algorithm::EcdsaStark);
+    let msg_digest = request.msg_to_sign.as_slice().try_into().unwrap();
+    let response = client.sign(request).await.unwrap().into_inner();
+    let signature = match response.sign_response.unwrap() {
+        SignResponse::Signature(signature) => signature,
+        SignResponse::Error(err) => {
+            panic!("Got error from sign: {}", err)
+        }
+    };
+
+    shutdown_sender.send(()).unwrap();
+
+    assert!(tofn::stark::verify(&to_array(pub_key), &msg_digest, &signature,).unwrap());
+}
+
+#[traced_test]
+#[tokio::test]
 async fn test_multisig_keygen_deterministic_and_unique_keys() {
     let key = "multisig key";
     let (mut client, shutdown_sender) = spin_test_service_and_client().await;
 
     let mut seen_pub_keys = std::collections::HashSet::new();
 
-    for algorithm in [Algorithm::Ecdsa, Algorithm::Ed25519] {
+    for algorithm in [Algorithm::Ecdsa, Algorithm::Ed25519, Algorithm::EcdsaStark] {
         let request = KeygenRequest::new(key, algorithm);
 
         let response = client.keygen(request.clone()).await.unwrap().into_inner();
@@ -206,7 +237,7 @@ async fn test_multisig_only_sign() {
     let key = "multisig key";
     let (mut client, shutdown_sender) = spin_test_service_and_client().await;
 
-    for algorithm in [Algorithm::Ecdsa, Algorithm::Ed25519] {
+    for algorithm in [Algorithm::Ecdsa, Algorithm::Ed25519, Algorithm::EcdsaStark] {
         let request = SignRequest::new(key, algorithm);
         let response = client.sign(request).await.unwrap().into_inner();
         let _ = match response.sign_response.unwrap() {
@@ -226,7 +257,7 @@ async fn test_multisig_short_key_fail() {
     let key = "k"; // too short key
     let (mut client, shutdown_sender) = spin_test_service_and_client().await;
 
-    for algorithm in [Algorithm::Ecdsa, Algorithm::Ed25519] {
+    for algorithm in [Algorithm::Ecdsa, Algorithm::Ed25519, Algorithm::EcdsaStark] {
         let keygen_request = KeygenRequest::new(key, algorithm);
         let keygen_response = client.keygen(keygen_request).await.unwrap().into_inner();
 
@@ -259,7 +290,7 @@ async fn test_multisig_truncated_msg_fail() {
     let key = "key-uid";
     let (mut client, shutdown_sender) = spin_test_service_and_client().await;
 
-    for algorithm in [Algorithm::Ecdsa, Algorithm::Ed25519] {
+    for algorithm in [Algorithm::Ecdsa, Algorithm::Ed25519, Algorithm::EcdsaStark] {
         // attempt sign with truncated msg digest
         let mut request = SignRequest::new(key, algorithm);
         request.msg_to_sign = vec![32; 31];
@@ -281,7 +312,7 @@ async fn test_multisig_truncated_msg_fail() {
 async fn test_key_presence() {
     let (mut client, shutdown_sender) = spin_test_service_and_client().await;
 
-    for algorithm in [Algorithm::Ecdsa, Algorithm::Ed25519] {
+    for algorithm in [Algorithm::Ecdsa, Algorithm::Ed25519, Algorithm::EcdsaStark] {
         let presence_request = KeyPresenceRequest {
             key_uid: "key_uid".to_string(),
             pub_key: vec![],

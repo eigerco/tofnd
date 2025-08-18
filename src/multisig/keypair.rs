@@ -1,13 +1,14 @@
 use crate::{proto::Algorithm, TofndResult};
 use anyhow::anyhow;
 use tofn::{
-    ecdsa, ed25519,
+    ecdsa, ed25519, stark,
     sdk::api::{MessageDigest, SecretRecoveryKey},
 };
 
 pub enum KeyPair {
     Ecdsa(ecdsa::KeyPair),
     Ed25519(ed25519::KeyPair),
+    Stark(stark::KeyPair),
 }
 
 impl KeyPair {
@@ -31,6 +32,13 @@ impl KeyPair {
 
                 Self::Ed25519(key_pair)
             }
+
+            Algorithm::EcdsaStark => {
+                let key_pair = stark::keygen(secret_recovery_key, session_nonce)
+                    .map_err(|_| anyhow!("Cannot generate keypair"))?;
+
+                Self::Stark(key_pair)
+            }
         })
     }
 
@@ -38,6 +46,7 @@ impl KeyPair {
         match self {
             Self::Ecdsa(key_pair) => key_pair.encoded_verifying_key().into(),
             Self::Ed25519(key_pair) => key_pair.encoded_verifying_key().into(),
+            Self::Stark(key_pair) => key_pair.encoded_verifying_key().into(),
         }
     }
 
@@ -45,6 +54,7 @@ impl KeyPair {
         match self {
             Self::Ecdsa(key_pair) => ecdsa::sign(key_pair.signing_key(), msg_to_sign),
             Self::Ed25519(key_pair) => ed25519::sign(key_pair, msg_to_sign),
+            Self::Stark(key_pair) => stark::sign(&key_pair.signing_key_bytes(), msg_to_sign),
         }
         .map_err(|_| anyhow!("signing failed"))
     }
