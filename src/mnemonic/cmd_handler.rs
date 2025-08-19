@@ -100,7 +100,7 @@ impl KvManager {
         let mut keys = vec![String::from(MNEMONIC_KEY)];
 
         for i in (1..count).rev() {
-            keys.push(format!("{}_{}", MNEMONIC_KEY, i))
+            keys.push(format!("{MNEMONIC_KEY}_{i}"))
         }
 
         Ok(keys)
@@ -158,7 +158,7 @@ impl KvManager {
 
         let key = match count {
             0 => String::from(MNEMONIC_KEY), // latest mnemonic is preserved in the original key
-            _ => std::format!("{}_{}", MNEMONIC_KEY, count), // count is 0-indexed
+            _ => std::format!("{MNEMONIC_KEY}_{count}"), // count is 0-indexed
         };
 
         Ok((key, count))

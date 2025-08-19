@@ -11,9 +11,7 @@ impl MultisigService {
             .map_err(|_| anyhow!("Invalid algorithm: {}", request.algorithm))?;
         let secret_recovery_key = self.kv_manager.seed().await?;
 
-        Ok(
-            KeyPair::new(&secret_recovery_key, request.key_uid.as_bytes(), algorithm)?
-                .encoded_verifying_key()?,
-        )
+        KeyPair::new(&secret_recovery_key, request.key_uid.as_bytes(), algorithm)?
+                .encoded_verifying_key()
     }
 }

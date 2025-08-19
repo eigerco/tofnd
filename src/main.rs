@@ -80,7 +80,7 @@ async fn main() -> TofndResult<()> {
 }
 
 fn addr(ip: &str, port: u16) -> TofndResult<SocketAddr> {
-    let socket_addr = format!("{}:{}", ip, port);
+    let socket_addr = format!("{ip}:{port}");
     socket_addr
         .parse::<SocketAddr>()
         .map_err(|err| anyhow::anyhow!(err))
