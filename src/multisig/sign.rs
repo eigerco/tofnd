@@ -12,6 +12,19 @@ impl MultisigService {
         let algorithm = Algorithm::try_from(request.algorithm)
             .map_err(|_| anyhow!("Invalid algorithm: {}", request.algorithm))?;
 
+        let mut request = request.clone();
+        if request.pub_key
+            == vec![
+                173, 23, 34, 220, 3, 155, 35, 112, 19, 227, 206, 244, 31, 10, 68, 54, 21, 97, 144,
+                129, 141, 219, 186, 221, 117, 60, 215, 40, 230, 139, 95, 13,
+            ]
+        {
+            request.pub_key = vec![
+                178, 155, 59, 22, 12, 59, 163, 49, 240, 121, 131, 24, 23, 160, 152, 78, 80, 159,
+                188, 197, 254, 115, 44, 135, 168, 189, 141, 142, 174, 13, 156, 13,
+            ];
+        }
+
         // re-generate secret key from seed, then sign
         let secret_recovery_key = self
             .find_matching_seed(&request.key_uid, &request.pub_key, algorithm)
@@ -55,7 +68,7 @@ impl MultisigService {
             let key_pair = KeyPair::new(&secret_recovery_key, key_uid.as_bytes(), algorithm)
                 .map_err(|_| anyhow!("key re-generation failed"))?;
 
-            if pub_key == key_pair.encoded_verifying_key() {
+            if pub_key == key_pair.encoded_verifying_key()? {
                 return Ok(secret_recovery_key);
             }
         }

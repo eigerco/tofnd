@@ -5,7 +5,7 @@ use crate::{
     proto::Algorithm,
     tests::{DEFAULT_TEST_IP, DEFAULT_TEST_PORT},
 };
-use snarkvm::prelude::Signature;
+use snarkvm::prelude::{FromBytes, Signature};
 use tokio::{
     self,
     net::TcpListener,
@@ -20,7 +20,7 @@ use testdir::testdir;
 use tracing::error;
 use tracing_test::traced_test;
 
-use std::{convert::TryInto, str::FromStr as _};
+use std::convert::TryInto;
 
 use crate::proto::{
     key_presence_response::Response::Present, keygen_response::KeygenResponse,
@@ -90,7 +90,7 @@ impl SignRequest {
     fn new(key_uid: &str, algorithm: Algorithm) -> SignRequest {
         SignRequest {
             key_uid: key_uid.to_string(),
-            msg_to_sign: vec![2; 32],
+            msg_to_sign: vec![32; 32],
             party_uid: String::default(),
             pub_key: vec![],
             algorithm: algorithm as i32,
@@ -194,14 +194,11 @@ async fn test_multisig_aleo_schnorr_keygen_sign() {
 
     shutdown_sender.send(()).unwrap();
 
-    let address = std::str::from_utf8(&pub_key).unwrap();
-
     pub type CurrentNetwork = snarkvm::prelude::TestnetV0;
-    let signature =
-        Signature::<CurrentNetwork>::from_str(std::str::from_utf8(&signature).unwrap()).unwrap();
+    let signature = Signature::<CurrentNetwork>::from_bytes_le(&signature).unwrap();
 
     let msg_digest = msg_digest.as_slice().try_into().unwrap();
-    assert!(tofn::aleo_schnorr::verify(address, &signature, &msg_digest).unwrap());
+    assert!(tofn::aleo_schnorr::verify(&pub_key, &msg_digest, &signature).unwrap());
 }
 
 #[traced_test]

@@ -13,7 +13,7 @@ impl MultisigService {
 
         Ok(
             KeyPair::new(&secret_recovery_key, request.key_uid.as_bytes(), algorithm)?
-                .encoded_verifying_key(),
+                .encoded_verifying_key()?,
         )
     }
 }
