@@ -22,13 +22,13 @@ compile_error!(
 compile_error!("Features 'aleo-testnet', 'aleo-mainnet' and 'aleo-canary' are mutually exclusive");
 
 #[cfg(feature = "aleo-testnet")]
-pub type CurrentNetwork = snarkvm::prelude::TestnetV0;
+pub type CurrentNetwork = snarkvm_console_network::TestnetV0;
 
 #[cfg(feature = "aleo-mainnet")]
-pub type CurrentNetwork = snarkvm::prelude::MainnetV0;
+pub type CurrentNetwork = snarkvm_console_network::MainnetV0;
 
 #[cfg(feature = "aleo-canary")]
-pub type CurrentNetwork = snarkvm::prelude::CanaryV0;
+pub type CurrentNetwork = snarkvm_console_network::CanaryV0;
 
 pub enum KeyPair {
     Ecdsa(ecdsa::KeyPair),

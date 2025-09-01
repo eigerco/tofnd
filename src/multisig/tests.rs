@@ -5,7 +5,8 @@ use crate::{
     proto::Algorithm,
     tests::{DEFAULT_TEST_IP, DEFAULT_TEST_PORT},
 };
-use snarkvm::prelude::{FromBytes, Signature};
+use snarkvm_console_account::Signature;
+use snarkvm_utilities::FromBytes;
 use tokio::{
     self,
     net::TcpListener,
@@ -88,9 +89,14 @@ impl KeygenRequest {
 // dummy ctor for KeygenResult
 impl SignRequest {
     fn new(key_uid: &str, algorithm: Algorithm) -> SignRequest {
+        let message_to_sign = match algorithm {
+            Algorithm::Ecdsa | Algorithm::Ed25519 => vec![32; 32],
+            Algorithm::AleoSchnorr => vec![2; 32], // Aleo value needs to be a group element. This is group element: 908173248920127022929968509872062022378588115024631874819275168689514742274group
+        };
+
         SignRequest {
             key_uid: key_uid.to_string(),
-            msg_to_sign: vec![32; 32],
+            msg_to_sign: message_to_sign,
             party_uid: String::default(),
             pub_key: vec![],
             algorithm: algorithm as i32,
@@ -194,7 +200,7 @@ async fn test_multisig_aleo_schnorr_keygen_sign() {
 
     shutdown_sender.send(()).unwrap();
 
-    pub type CurrentNetwork = snarkvm::prelude::TestnetV0;
+    pub type CurrentNetwork = snarkvm_console_network::TestnetV0;
     let signature = Signature::<CurrentNetwork>::from_bytes_le(&signature).unwrap();
 
     let msg_digest = msg_digest.as_slice().try_into().unwrap();

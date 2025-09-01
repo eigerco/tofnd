@@ -48,7 +48,7 @@ thiserror = { version = "1.0", default-features = false }
 anyhow = { version = "1.0", default-features = false }
 
 # aleo
-snarkvm = { version = "3.7.1", default-features =  false, features = ["console"]}
+snarkvm-console-network = { version = "4.1.0" }
 
 [build-dependencies]
 tonic-build = { version = "0.12" }
@@ -59,6 +59,8 @@ tracing-test = { version = "0.2", default-features = false }
 testdir = { version = "0.9", default-features = false }
 goldie = { version = "0.5" }
 hex = { version = "0.4" }
+snarkvm-console-account = { version = "4.1.0", default-features = false, features = ["signature"] }
+snarkvm-utilities = { version = "4.1.0" }
 
 # Don't abort in case there is a panic to clean up data
 [profile.dev]
