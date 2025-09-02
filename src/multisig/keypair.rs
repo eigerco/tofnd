@@ -5,7 +5,26 @@ use tofn::{
     sdk::api::{MessageDigest, SecretRecoveryKey},
 };
 
-pub type CurrentNetwork = snarkvm::prelude::TestnetV0;
+const _: () = {
+    let feature_count = 0
+        + if cfg!(feature = "aleo-testnet") { 1 } else { 0 }
+        + if cfg!(feature = "aleo-mainnet") { 1 } else { 0 }
+        + if cfg!(feature = "aleo-canary") { 1 } else { 0 };
+
+    assert!(
+        feature_count == 1,
+        "Exactly one of 'aleo-testnet', 'aleo-mainnet', or 'aleo-canary' must be enabled"
+    );
+};
+
+#[cfg(feature = "aleo-testnet")]
+pub type CurrentNetwork = snarkvm_console_network::TestnetV0;
+
+#[cfg(feature = "aleo-mainnet")]
+pub type CurrentNetwork = snarkvm_console_network::MainnetV0;
+
+#[cfg(feature = "aleo-canary")]
+pub type CurrentNetwork = snarkvm_console_network::CanaryV0;
 
 pub enum KeyPair {
     Ecdsa(ecdsa::KeyPair),
@@ -45,11 +64,17 @@ impl KeyPair {
         })
     }
 
-    pub fn encoded_verifying_key(&self) -> Vec<u8> {
+    pub fn encoded_verifying_key(&self) -> TofndResult<Vec<u8>> {
         match self {
-            Self::Ecdsa(key_pair) => key_pair.encoded_verifying_key().into(),
-            Self::Ed25519(key_pair) => key_pair.encoded_verifying_key().into(),
-            Self::AleoSchnorr(key_pair) => key_pair.encoded_verifying_key().into_bytes(),
+            Self::Ecdsa(key_pair) => Ok(key_pair.encoded_verifying_key().into()),
+            Self::Ed25519(key_pair) => Ok(key_pair.encoded_verifying_key().into()),
+            Self::AleoSchnorr(key_pair) => {
+                let bytes = key_pair
+                    .encoded_verifying_key()
+                    .map_err(|_| anyhow!("Failed to get aleo schnorr verify key"))?;
+
+                Ok(bytes.to_vec())
+            }
         }
     }
 

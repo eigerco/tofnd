@@ -5,7 +5,8 @@ use crate::{
     proto::Algorithm,
     tests::{DEFAULT_TEST_IP, DEFAULT_TEST_PORT},
 };
-use snarkvm::prelude::Signature;
+use snarkvm_console_account::{Group, Signature, ToBytes};
+use snarkvm_utilities::FromBytes;
 use tokio::{
     self,
     net::TcpListener,
@@ -22,6 +23,7 @@ use tracing_test::traced_test;
 
 use std::{convert::TryInto, str::FromStr as _};
 
+use crate::multisig::keypair::CurrentNetwork;
 use crate::proto::{
     key_presence_response::Response::Present, keygen_response::KeygenResponse,
     multisig_client::MultisigClient, multisig_server::MultisigServer, sign_response::SignResponse,
@@ -88,9 +90,18 @@ impl KeygenRequest {
 // dummy ctor for KeygenResult
 impl SignRequest {
     fn new(key_uid: &str, algorithm: Algorithm) -> SignRequest {
+        let message_to_sign = match algorithm {
+            Algorithm::Ecdsa | Algorithm::Ed25519 => vec![32; 32],
+            Algorithm::AleoSchnorr => {
+                // Aleo value needs to be a group element.
+                let group = Group::<CurrentNetwork>::from_str("908173248920127022929968509872062022378588115024631874819275168689514742274group").unwrap();
+                group.to_bytes_le().unwrap()
+            }
+        };
+
         SignRequest {
             key_uid: key_uid.to_string(),
-            msg_to_sign: vec![2; 32],
+            msg_to_sign: message_to_sign,
             party_uid: String::default(),
             pub_key: vec![],
             algorithm: algorithm as i32,
@@ -194,14 +205,10 @@ async fn test_multisig_aleo_schnorr_keygen_sign() {
 
     shutdown_sender.send(()).unwrap();
 
-    let address = std::str::from_utf8(&pub_key).unwrap();
-
-    pub type CurrentNetwork = snarkvm::prelude::TestnetV0;
-    let signature =
-        Signature::<CurrentNetwork>::from_str(std::str::from_utf8(&signature).unwrap()).unwrap();
+    let signature = Signature::<CurrentNetwork>::from_bytes_le(&signature).unwrap();
 
     let msg_digest = msg_digest.as_slice().try_into().unwrap();
-    assert!(tofn::aleo_schnorr::verify(address, &signature, &msg_digest).unwrap());
+    assert!(tofn::aleo_schnorr::verify(&pub_key, &msg_digest, &signature).unwrap());
 }
 
 #[traced_test]
