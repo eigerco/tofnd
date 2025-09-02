@@ -5,21 +5,17 @@ use tofn::{
     sdk::api::{MessageDigest, SecretRecoveryKey},
 };
 
-#[cfg(not(any(
-    feature = "aleo-testnet",
-    feature = "aleo-mainnet",
-    feature = "aleo-canary"
-)))]
-compile_error!(
-    "One of aleo networks should be enabled: 'aleo-testnet', 'aleo-mainnet', or 'aleo-canary'"
-);
+const _: () = {
+    let feature_count = 0
+        + if cfg!(feature = "aleo-testnet") { 1 } else { 0 }
+        + if cfg!(feature = "aleo-mainnet") { 1 } else { 0 }
+        + if cfg!(feature = "aleo-canary") { 1 } else { 0 };
 
-#[cfg(all(
-    feature = "aleo-testnet",
-    feature = "aleo-mainnet",
-    feature = "aleo-canary"
-))]
-compile_error!("Features 'aleo-testnet', 'aleo-mainnet' and 'aleo-canary' are mutually exclusive");
+    assert!(
+        feature_count == 1,
+        "Exactly one of 'aleo-testnet', 'aleo-mainnet', or 'aleo-canary' must be enabled"
+    );
+};
 
 #[cfg(feature = "aleo-testnet")]
 pub type CurrentNetwork = snarkvm_console_network::TestnetV0;

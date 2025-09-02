@@ -23,13 +23,12 @@ use tracing_test::traced_test;
 
 use std::{convert::TryInto, str::FromStr as _};
 
+use crate::multisig::keypair::CurrentNetwork;
 use crate::proto::{
     key_presence_response::Response::Present, keygen_response::KeygenResponse,
     multisig_client::MultisigClient, multisig_server::MultisigServer, sign_response::SignResponse,
     KeyPresenceRequest, KeygenRequest, SignRequest,
 };
-
-type CurrentNetwork = snarkvm_console_network::TestnetV0;
 
 // set up tests
 async fn spin_test_service_and_client() -> (MultisigClient<Channel>, Sender<()>) {
