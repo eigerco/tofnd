@@ -9,6 +9,8 @@ keywords = ["cryptography", "blockchain", "axelar", "ecdsa", "ed25519"]
 
 [dependencies]
 tofn = { version = "1.1", git = "https://github.com/eigerco/tofn.git", branch = "refactor-aleo-schnorr" }
+# tofn = { path = "../tofn" }
+
 
 # logging
 log = { version = "0.4",default-features = false }
@@ -48,7 +50,7 @@ thiserror = { version = "1.0", default-features = false }
 anyhow = { version = "1.0", default-features = false }
 
 # aleo
-snarkvm-console-network = { version = "4.1.0" }
+snarkvm-console-network = { git = "https://github.com/eigerco/snarkVM", branch = "cosmwasm-5" }
 
 [build-dependencies]
 tonic-build = { version = "0.12" }
@@ -74,3 +76,7 @@ default = ["aleo-testnet"]
 aleo-testnet = []
 aleo-mainnet = []
 aleo-canary = []
+
+[patch.crates-io]
+# Use our fork of snarkVM so we use the same snarkVM code in axelar-aleo and axelar-amplifier.
+snarkvm = { git = "https://github.com/eigerco/snarkVM", branch = "cosmwasm-5" }
