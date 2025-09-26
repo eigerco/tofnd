@@ -80,4 +80,5 @@ aleo-canary = []
 snarkvm = { git = "https://github.com/eigerco/snarkVM", tag = "snarkvm-with-cosmwasm" }
 snarkvm-algorithms = { git = "https://github.com/eigerco/snarkVM", tag = "snarkvm-with-cosmwasm", package = "snarkvm-algorithms" }
 snarkvm-console-account = { git = "https://github.com/eigerco/snarkVM", tag = "snarkvm-with-cosmwasm", package = "snarkvm-console-account" }
+snarkvm-utilities = { git = "https://github.com/eigerco/snarkVM", tag = "snarkvm-with-cosmwasm", package = "snarkvm-utilities" }
 

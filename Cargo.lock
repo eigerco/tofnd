@@ -2164,7 +2164,7 @@ dependencies = [
  "snarkvm-curves",
  "snarkvm-fields",
  "snarkvm-parameters",
- "snarkvm-utilities 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
+ "snarkvm-utilities",
  "thiserror 2.0.12",
 ]
 
@@ -2201,7 +2201,7 @@ dependencies = [
  "smallvec",
  "snarkvm-console-types",
  "snarkvm-fields",
- "snarkvm-utilities 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
+ "snarkvm-utilities",
  "tiny-keccak",
 ]
 
@@ -2250,7 +2250,7 @@ dependencies = [
  "serde",
  "snarkvm-curves",
  "snarkvm-fields",
- "snarkvm-utilities 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
+ "snarkvm-utilities",
  "zeroize",
 ]
 
@@ -2271,7 +2271,7 @@ dependencies = [
  "snarkvm-console-collections",
  "snarkvm-console-network",
  "snarkvm-console-types",
- "snarkvm-utilities 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
+ "snarkvm-utilities",
 ]
 
 [[package]]
@@ -2372,7 +2372,7 @@ dependencies = [
  "rustc_version",
  "serde",
  "snarkvm-fields",
- "snarkvm-utilities 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
+ "snarkvm-utilities",
  "thiserror 2.0.12",
 ]
 
@@ -2388,7 +2388,7 @@ dependencies = [
  "rand",
  "rayon",
  "serde",
- "snarkvm-utilities 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
+ "snarkvm-utilities",
  "thiserror 2.0.12",
  "zeroize",
 ]
@@ -2412,30 +2412,8 @@ dependencies = [
  "serde_json",
  "sha2",
  "snarkvm-curves",
- "snarkvm-utilities 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
+ "snarkvm-utilities",
  "thiserror 2.0.12",
-]
-
-[[package]]
-name = "snarkvm-utilities"
-version = "4.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "eb3684c197e65e3781ea5f46bfbcd25289fdc6895d74c9bdfd380fb1e693d282"
-dependencies = [
- "aleo-std",
- "anyhow",
- "bincode",
- "num-bigint",
- "num_cpus",
- "rand",
- "rand_xorshift",
- "rayon",
- "serde",
- "serde_json",
- "smol_str",
- "snarkvm-utilities-derives 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "thiserror 2.0.12",
- "zeroize",
 ]
 
 [[package]]
@@ -2454,20 +2432,9 @@ dependencies = [
  "serde",
  "serde_json",
  "smol_str",
- "snarkvm-utilities-derives 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
+ "snarkvm-utilities-derives",
  "thiserror 2.0.12",
  "zeroize",
-]
-
-[[package]]
-name = "snarkvm-utilities-derives"
-version = "4.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ff65cbc4e5055971fe6bea3f4b0ac90d61f8b01f19ca41aad0595af187bfbd22"
-dependencies = [
- "proc-macro2",
- "quote 1.0.38",
- "syn 2.0.92",
 ]
 
 [[package]]
@@ -2723,7 +2690,7 @@ dependencies = [
  "sled",
  "snarkvm-console-account",
  "snarkvm-console-network",
- "snarkvm-utilities 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "snarkvm-utilities",
  "testdir",
  "thiserror 1.0.69",
  "tiny-bip39",
