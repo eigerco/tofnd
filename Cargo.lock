@@ -2161,9 +2161,9 @@ dependencies = [
  "serde",
  "sha2",
  "smallvec",
- "snarkvm-curves 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
- "snarkvm-fields 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
- "snarkvm-parameters 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
+ "snarkvm-curves",
+ "snarkvm-fields",
+ "snarkvm-parameters",
  "snarkvm-utilities 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
  "thiserror 2.0.12",
 ]
@@ -2173,24 +2173,12 @@ name = "snarkvm-console"
 version = "4.1.0"
 source = "git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm#adce115aba07a5025c6481002d856ea13da91150"
 dependencies = [
- "snarkvm-console-account 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
- "snarkvm-console-algorithms 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
- "snarkvm-console-collections 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
- "snarkvm-console-network 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
+ "snarkvm-console-account",
+ "snarkvm-console-algorithms",
+ "snarkvm-console-collections",
+ "snarkvm-console-network",
  "snarkvm-console-program",
- "snarkvm-console-types 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
-]
-
-[[package]]
-name = "snarkvm-console-account"
-version = "4.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0fa7313b8680a1f82fdf781a40f6c9bafe2b89ada01ddd45f2d5d4e7f8ef19f8"
-dependencies = [
- "bs58",
- "snarkvm-console-network 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "snarkvm-console-types 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "zeroize",
+ "snarkvm-console-types",
 ]
 
 [[package]]
@@ -2199,23 +2187,9 @@ version = "4.1.0"
 source = "git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm#adce115aba07a5025c6481002d856ea13da91150"
 dependencies = [
  "bs58",
- "snarkvm-console-network 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
- "snarkvm-console-types 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
+ "snarkvm-console-network",
+ "snarkvm-console-types",
  "zeroize",
-]
-
-[[package]]
-name = "snarkvm-console-algorithms"
-version = "4.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e4b9f7906246f8aa6c6a123442d4a68bd9f1a3fdf67b737a972e7a2b14e06cbd"
-dependencies = [
- "blake2s_simd",
- "smallvec",
- "snarkvm-console-types 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "snarkvm-fields 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "snarkvm-utilities 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "tiny-keccak",
 ]
 
 [[package]]
@@ -2225,8 +2199,8 @@ source = "git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm#adce1
 dependencies = [
  "blake2s_simd",
  "smallvec",
- "snarkvm-console-types 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
- "snarkvm-fields 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
+ "snarkvm-console-types",
+ "snarkvm-fields",
  "snarkvm-utilities 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
  "tiny-keccak",
 ]
@@ -2234,45 +2208,12 @@ dependencies = [
 [[package]]
 name = "snarkvm-console-collections"
 version = "4.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "eb58421e5ea7d2de1c122aaae1b89fa1fd42799587f993d804b45ec3ffc34f6d"
-dependencies = [
- "aleo-std",
- "rayon",
- "snarkvm-console-algorithms 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "snarkvm-console-types 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
-]
-
-[[package]]
-name = "snarkvm-console-collections"
-version = "4.1.0"
 source = "git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm#adce115aba07a5025c6481002d856ea13da91150"
 dependencies = [
  "aleo-std",
  "rayon",
- "snarkvm-console-algorithms 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
- "snarkvm-console-types 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
-]
-
-[[package]]
-name = "snarkvm-console-network"
-version = "4.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "dc79cb67f9b9b326d73c8d136d17fe6e21b09cb6d6becd9ef454c0c27d5c8d51"
-dependencies = [
- "anyhow",
- "enum-iterator",
- "indexmap 2.7.0",
- "lazy_static",
- "paste",
- "serde",
- "snarkvm-algorithms",
- "snarkvm-console-algorithms 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "snarkvm-console-collections 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "snarkvm-console-network-environment 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "snarkvm-console-types 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "snarkvm-curves 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "snarkvm-parameters 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "snarkvm-console-algorithms",
+ "snarkvm-console-types",
 ]
 
 [[package]]
@@ -2287,31 +2228,12 @@ dependencies = [
  "paste",
  "serde",
  "snarkvm-algorithms",
- "snarkvm-console-algorithms 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
- "snarkvm-console-collections 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
- "snarkvm-console-network-environment 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
- "snarkvm-console-types 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
- "snarkvm-curves 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
- "snarkvm-parameters 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
-]
-
-[[package]]
-name = "snarkvm-console-network-environment"
-version = "4.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "533672b89baedeb825c1a5295009beaec0c1597c594b2d300b2189daa513bfc7"
-dependencies = [
- "anyhow",
- "bech32",
- "itertools 0.11.0",
- "nom",
- "num-traits",
- "rand",
- "serde",
- "snarkvm-curves 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "snarkvm-fields 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "snarkvm-utilities 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "zeroize",
+ "snarkvm-console-algorithms",
+ "snarkvm-console-collections",
+ "snarkvm-console-network-environment",
+ "snarkvm-console-types",
+ "snarkvm-curves",
+ "snarkvm-parameters",
 ]
 
 [[package]]
@@ -2326,8 +2248,8 @@ dependencies = [
  "num-traits",
  "rand",
  "serde",
- "snarkvm-curves 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
- "snarkvm-fields 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
+ "snarkvm-curves",
+ "snarkvm-fields",
  "snarkvm-utilities 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
  "zeroize",
 ]
@@ -2344,74 +2266,38 @@ dependencies = [
  "num-derive",
  "num-traits",
  "serde_json",
- "snarkvm-console-account 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
- "snarkvm-console-algorithms 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
- "snarkvm-console-collections 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
- "snarkvm-console-network 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
- "snarkvm-console-types 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
+ "snarkvm-console-account",
+ "snarkvm-console-algorithms",
+ "snarkvm-console-collections",
+ "snarkvm-console-network",
+ "snarkvm-console-types",
  "snarkvm-utilities 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
 ]
 
 [[package]]
 name = "snarkvm-console-types"
 version = "4.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ac000842ed5c25bbbd4dcaf619be02e2fdfbf36b877360646a265ca164abefd7"
-dependencies = [
- "snarkvm-console-network-environment 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "snarkvm-console-types-address 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "snarkvm-console-types-boolean 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "snarkvm-console-types-field 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "snarkvm-console-types-group 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "snarkvm-console-types-integers 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "snarkvm-console-types-scalar 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
-]
-
-[[package]]
-name = "snarkvm-console-types"
-version = "4.1.0"
 source = "git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm#adce115aba07a5025c6481002d856ea13da91150"
 dependencies = [
- "snarkvm-console-network-environment 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
- "snarkvm-console-types-address 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
- "snarkvm-console-types-boolean 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
- "snarkvm-console-types-field 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
- "snarkvm-console-types-group 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
- "snarkvm-console-types-integers 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
- "snarkvm-console-types-scalar 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
+ "snarkvm-console-network-environment",
+ "snarkvm-console-types-address",
+ "snarkvm-console-types-boolean",
+ "snarkvm-console-types-field",
+ "snarkvm-console-types-group",
+ "snarkvm-console-types-integers",
+ "snarkvm-console-types-scalar",
  "snarkvm-console-types-string",
 ]
 
 [[package]]
 name = "snarkvm-console-types-address"
 version = "4.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "220dee4d001a26ea084bf2422687e33d0e46552eabbaceac5583c18e24881d08"
-dependencies = [
- "snarkvm-console-network-environment 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "snarkvm-console-types-boolean 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "snarkvm-console-types-field 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "snarkvm-console-types-group 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
-]
-
-[[package]]
-name = "snarkvm-console-types-address"
-version = "4.1.0"
 source = "git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm#adce115aba07a5025c6481002d856ea13da91150"
 dependencies = [
- "snarkvm-console-network-environment 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
- "snarkvm-console-types-boolean 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
- "snarkvm-console-types-field 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
- "snarkvm-console-types-group 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
-]
-
-[[package]]
-name = "snarkvm-console-types-boolean"
-version = "4.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5067cdaad4f6316676958819b7f3201c37223d339f105327172f99f1d031b9c1"
-dependencies = [
- "snarkvm-console-network-environment 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "snarkvm-console-network-environment",
+ "snarkvm-console-types-boolean",
+ "snarkvm-console-types-field",
+ "snarkvm-console-types-group",
 ]
 
 [[package]]
@@ -2419,18 +2305,7 @@ name = "snarkvm-console-types-boolean"
 version = "4.1.0"
 source = "git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm#adce115aba07a5025c6481002d856ea13da91150"
 dependencies = [
- "snarkvm-console-network-environment 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
-]
-
-[[package]]
-name = "snarkvm-console-types-field"
-version = "4.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bb7d9196ea57b0f1310c361ef8f649965440eb4b119812743e5d452faf906cad"
-dependencies = [
- "snarkvm-console-network-environment 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "snarkvm-console-types-boolean 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "zeroize",
+ "snarkvm-console-network-environment",
 ]
 
 [[package]]
@@ -2438,21 +2313,9 @@ name = "snarkvm-console-types-field"
 version = "4.1.0"
 source = "git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm#adce115aba07a5025c6481002d856ea13da91150"
 dependencies = [
- "snarkvm-console-network-environment 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
- "snarkvm-console-types-boolean 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
+ "snarkvm-console-network-environment",
+ "snarkvm-console-types-boolean",
  "zeroize",
-]
-
-[[package]]
-name = "snarkvm-console-types-group"
-version = "4.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1141bf1e195e9bddf25ab583bc5a236f703b34b5c6b3a9cec2d191a30d976ee5"
-dependencies = [
- "snarkvm-console-network-environment 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "snarkvm-console-types-boolean 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "snarkvm-console-types-field 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "snarkvm-console-types-scalar 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -2460,22 +2323,10 @@ name = "snarkvm-console-types-group"
 version = "4.1.0"
 source = "git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm#adce115aba07a5025c6481002d856ea13da91150"
 dependencies = [
- "snarkvm-console-network-environment 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
- "snarkvm-console-types-boolean 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
- "snarkvm-console-types-field 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
- "snarkvm-console-types-scalar 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
-]
-
-[[package]]
-name = "snarkvm-console-types-integers"
-version = "4.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "622bfb154e28fa24ab5418ac3d6c1f4e38d32b6062021707bb9fe156a1265e49"
-dependencies = [
- "snarkvm-console-network-environment 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "snarkvm-console-types-boolean 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "snarkvm-console-types-field 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "snarkvm-console-types-scalar 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "snarkvm-console-network-environment",
+ "snarkvm-console-types-boolean",
+ "snarkvm-console-types-field",
+ "snarkvm-console-types-scalar",
 ]
 
 [[package]]
@@ -2483,22 +2334,10 @@ name = "snarkvm-console-types-integers"
 version = "4.1.0"
 source = "git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm#adce115aba07a5025c6481002d856ea13da91150"
 dependencies = [
- "snarkvm-console-network-environment 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
- "snarkvm-console-types-boolean 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
- "snarkvm-console-types-field 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
- "snarkvm-console-types-scalar 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
-]
-
-[[package]]
-name = "snarkvm-console-types-scalar"
-version = "4.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "396e57cad0852af9243770cdee0634fd9111210e46af1fe392b3bd4cd378453f"
-dependencies = [
- "snarkvm-console-network-environment 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "snarkvm-console-types-boolean 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "snarkvm-console-types-field 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "zeroize",
+ "snarkvm-console-network-environment",
+ "snarkvm-console-types-boolean",
+ "snarkvm-console-types-field",
+ "snarkvm-console-types-scalar",
 ]
 
 [[package]]
@@ -2506,9 +2345,9 @@ name = "snarkvm-console-types-scalar"
 version = "4.1.0"
 source = "git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm#adce115aba07a5025c6481002d856ea13da91150"
 dependencies = [
- "snarkvm-console-network-environment 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
- "snarkvm-console-types-boolean 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
- "snarkvm-console-types-field 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
+ "snarkvm-console-network-environment",
+ "snarkvm-console-types-boolean",
+ "snarkvm-console-types-field",
  "zeroize",
 ]
 
@@ -2517,25 +2356,10 @@ name = "snarkvm-console-types-string"
 version = "4.1.0"
 source = "git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm#adce115aba07a5025c6481002d856ea13da91150"
 dependencies = [
- "snarkvm-console-network-environment 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
- "snarkvm-console-types-boolean 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
- "snarkvm-console-types-field 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
- "snarkvm-console-types-integers 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
-]
-
-[[package]]
-name = "snarkvm-curves"
-version = "4.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "847bd65328bcf81bf61193ad60c9ffd71fb1eeb3031c9c4d94d17065470dfdd2"
-dependencies = [
- "rand",
- "rayon",
- "rustc_version",
- "serde",
- "snarkvm-fields 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "snarkvm-utilities 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "thiserror 2.0.12",
+ "snarkvm-console-network-environment",
+ "snarkvm-console-types-boolean",
+ "snarkvm-console-types-field",
+ "snarkvm-console-types-integers",
 ]
 
 [[package]]
@@ -2547,27 +2371,9 @@ dependencies = [
  "rayon",
  "rustc_version",
  "serde",
- "snarkvm-fields 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
+ "snarkvm-fields",
  "snarkvm-utilities 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
  "thiserror 2.0.12",
-]
-
-[[package]]
-name = "snarkvm-fields"
-version = "4.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e3239420081ef9390895701bdd843a6bb76614556b22a214bec01c11a9dea9f1"
-dependencies = [
- "aleo-std",
- "anyhow",
- "itertools 0.11.0",
- "num-traits",
- "rand",
- "rayon",
- "serde",
- "snarkvm-utilities 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "thiserror 2.0.12",
- "zeroize",
 ]
 
 [[package]]
@@ -2585,29 +2391,6 @@ dependencies = [
  "snarkvm-utilities 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
  "thiserror 2.0.12",
  "zeroize",
-]
-
-[[package]]
-name = "snarkvm-parameters"
-version = "4.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fe7c62f2623f227f05a2fe61fe7813e716006d3af4360525dc882c0ea56f35cd"
-dependencies = [
- "aleo-std",
- "anyhow",
- "cfg-if",
- "colored",
- "curl",
- "hex",
- "lazy_static",
- "parking_lot 0.12.3",
- "paste",
- "rand",
- "serde_json",
- "sha2",
- "snarkvm-curves 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "snarkvm-utilities 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "thiserror 2.0.12",
 ]
 
 [[package]]
@@ -2628,7 +2411,7 @@ dependencies = [
  "rand",
  "serde_json",
  "sha2",
- "snarkvm-curves 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
+ "snarkvm-curves",
  "snarkvm-utilities 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
  "thiserror 2.0.12",
 ]
@@ -2938,8 +2721,8 @@ dependencies = [
  "scrypt",
  "serde",
  "sled",
- "snarkvm-console-account 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "snarkvm-console-network 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
+ "snarkvm-console-account",
+ "snarkvm-console-network",
  "snarkvm-utilities 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "testdir",
  "thiserror 1.0.69",
