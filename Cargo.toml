@@ -78,3 +78,4 @@ aleo-canary = []
 [patch.crates-io]
 # Use our fork of snarkVM so we use the same snarkVM code in axelar-aleo and axelar-amplifier.
 snarkvm = { git = "https://github.com/eigerco/snarkVM", tag = "snarkvm-with-cosmwasm" }
+snarkvm-algorithms = { git = "https://github.com/eigerco/snarkVM", tag = "snarkvm-with-cosmwasm", package = "snarkvm-algorithms" }

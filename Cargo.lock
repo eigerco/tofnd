@@ -2144,34 +2144,6 @@ dependencies = [
 [[package]]
 name = "snarkvm-algorithms"
 version = "4.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "79c15ab13c258ac73aa929d39d91dbc4e4b5fb7564430bba50854ea0b5f28ff9"
-dependencies = [
- "aleo-std",
- "anyhow",
- "blake2",
- "cfg-if",
- "fxhash",
- "hashbrown 0.15.2",
- "hex",
- "indexmap 2.7.0",
- "itertools 0.11.0",
- "num-traits",
- "rand",
- "rayon",
- "serde",
- "sha2",
- "smallvec",
- "snarkvm-curves 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "snarkvm-fields 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "snarkvm-parameters 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "snarkvm-utilities 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "thiserror 2.0.12",
-]
-
-[[package]]
-name = "snarkvm-algorithms"
-version = "4.1.0"
 source = "git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm#adce115aba07a5025c6481002d856ea13da91150"
 dependencies = [
  "aleo-std",
@@ -2294,7 +2266,7 @@ dependencies = [
  "lazy_static",
  "paste",
  "serde",
- "snarkvm-algorithms 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "snarkvm-algorithms",
  "snarkvm-console-algorithms 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "snarkvm-console-collections 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "snarkvm-console-network-environment 4.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -2314,7 +2286,7 @@ dependencies = [
  "lazy_static",
  "paste",
  "serde",
- "snarkvm-algorithms 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
+ "snarkvm-algorithms",
  "snarkvm-console-algorithms 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
  "snarkvm-console-collections 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
  "snarkvm-console-network-environment 4.1.0 (git+https://github.com/eigerco/snarkVM?tag=snarkvm-with-cosmwasm)",
