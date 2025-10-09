@@ -8,7 +8,7 @@ description = "A cryptographic signing service, used by the Axelar network"
 keywords = ["cryptography", "blockchain", "axelar", "ecdsa", "ed25519"]
 
 [dependencies]
-tofn = { version = "1.1" }
+tofn = { version = "1.1", git = "https://github.com/eigerco/tofn.git", branch = "aleo-schnorr" }
 
 # logging
 log = { version = "0.4",default-features = false }
@@ -47,6 +47,9 @@ zeroize = { version = "1.8", features = ["zeroize_derive"], default-features = f
 thiserror = { version = "1.0", default-features = false }
 anyhow = { version = "1.0", default-features = false }
 
+# aleo
+snarkvm-console-network = { git = "https://github.com/eigerco/snarkVM", tag = "snarkvm-with-cosmwasm" }
+
 [build-dependencies]
 tonic-build = { version = "0.12" }
 
@@ -56,6 +59,8 @@ tracing-test = { version = "0.2", default-features = false }
 testdir = { version = "0.9", default-features = false }
 goldie = { version = "0.5" }
 hex = { version = "0.4" }
+snarkvm-console-account = { version = "4.1.0", default-features = false, features = ["signature"] }
+snarkvm-utilities = { version = "4.1.0" }
 
 # Don't abort in case there is a panic to clean up data
 [profile.dev]
@@ -65,3 +70,15 @@ panic = "unwind"
 panic = "unwind"
 
 [features]
+default = ["aleo-testnet"]
+aleo-testnet = []
+aleo-mainnet = []
+aleo-canary = []
+
+[patch.crates-io]
+# Use our fork of snarkVM so we use the same snarkVM code in axelar-aleo and axelar-amplifier.
+snarkvm = { git = "https://github.com/eigerco/snarkVM", tag = "snarkvm-with-cosmwasm" }
+snarkvm-algorithms = { git = "https://github.com/eigerco/snarkVM", tag = "snarkvm-with-cosmwasm", package = "snarkvm-algorithms" }
+snarkvm-console-account = { git = "https://github.com/eigerco/snarkVM", tag = "snarkvm-with-cosmwasm", package = "snarkvm-console-account" }
+snarkvm-utilities = { git = "https://github.com/eigerco/snarkVM", tag = "snarkvm-with-cosmwasm", package = "snarkvm-utilities" }
+

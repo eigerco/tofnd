@@ -55,7 +55,7 @@ impl MultisigService {
             let key_pair = KeyPair::new(&secret_recovery_key, key_uid.as_bytes(), algorithm)
                 .map_err(|_| anyhow!("key re-generation failed"))?;
 
-            if pub_key == key_pair.encoded_verifying_key() {
+            if pub_key == key_pair.encoded_verifying_key()? {
                 return Ok(secret_recovery_key);
             }
         }

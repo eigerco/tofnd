@@ -3,6 +3,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     tonic_build::configure()
         // .build_client(false)
         // .out_dir(".") // if you want to peek at the generated code
-        .compile(&["proto/multisig.proto"], &["proto"])?;
+        .compile_protos(&["proto/multisig.proto"], &["proto"])?;
     Ok(())
 }
